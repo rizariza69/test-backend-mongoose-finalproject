@@ -24,13 +24,15 @@ module.exports = {
   },
   login: async (req, res) => {
     try {
-      const users = user.findOne({
-        where: { email: req.body.email }
+      const users = await user.findOne({
+        email: req.body.email
       });
 
       if (users === null) {
         res.send("User not found");
       } else {
+        // console.log(users.id);
+
         const token = jwt.sign(
           {
             id: users.id,
